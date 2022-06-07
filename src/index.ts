@@ -1,42 +1,30 @@
 let cant = document.getElementById("cantidad");
 
-function iniciar_butacas(max: number): boolean[] {
+function iniciarButacasAleatoriamente(cantidad: number): boolean[] {
   let butacas: boolean[] = [];
-  for (let i = 0; i < max; i++) {
-    butacas[i] = false;
+  for (let i = 0; i < cantidad; i++) {
+    butacas[i] = Math.random() < 0.5;
   }
   console.log(butacas);
   return butacas;
 }
 
-function consultar_butacas_disponibles(butacas: boolean[]): boolean[] {
+function consultarButacasDisponibles(butacas: boolean[]): number {
   let cant: number = butacas.length;
+  let butacasLibres: number = 0;
   for (let i = 0; i < cant; i++) {
-    if (butacas[i] == false) {
-      console.log("La butaca " + i + " está libre");
+    if (butacas[i] === false) {
+      butacasLibres = butacasLibres + 1;
     }
   }
-  return butacas;
-}
-
-function reservar_butaca(butaca: number, butacas: boolean[]): boolean[] {
-  if (butacas[butaca] == false) {
-    butacas[butaca] = true;
-    console.log("La butaca " + butaca + " elegida, se reservó exitosamente");
-  } else {
-    console.log("La butaca " + butaca + " elegida, está ocupada");
-  }
-
-  return butacas;
+  return butacasLibres;
 }
 
 btnDatos1.addEventListener("click", () => {
   let cantidad: number = cant.value;
   let butacas: boolean[];
-  let butacas_libres: boolean[];
-  let butaca: number = 0;
-  butacas = iniciar_butacas(cantidad);
-  butacas_libres = consultar_butacas_disponibles(butacas);
-  butaca = prompt("Elegir butaca y reservar ");
-  butacas = reservar_butaca(butaca, butacas_libres);
+  let butacasLibres: number = 0;
+  butacas = iniciarButacasAleatoriamente(cantidad);
+  butacasLibres = consultarButacasDisponibles(butacas);
+  console.log(butacasLibres);
 });
